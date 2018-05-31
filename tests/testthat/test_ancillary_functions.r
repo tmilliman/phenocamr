@@ -1,4 +1,7 @@
-# Phenocamr unit tests
+## Phenocamr unit tests
+
+context("Test Ancillary Functions")
+library(phenocamr)
 
 # ancillary functions
 test_that("check ancillary routines",{

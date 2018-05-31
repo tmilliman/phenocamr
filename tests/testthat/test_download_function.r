@@ -1,4 +1,6 @@
 # Phenocamr unit tests
+context("Test download functions")
+library(phenocamr)
 
 # download routine
 test_that("check download options",{
@@ -59,6 +61,8 @@ test_that("check download options",{
           !inherits(df_false, "try-error") &
           !inherits(df_contract, "try-error") &
           !inherits(df_daymet,"try-error")
+
+  check = !inherits(df,"try-error")
   
   # check if no error occured
   expect_true(check)
