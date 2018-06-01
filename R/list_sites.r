@@ -19,18 +19,20 @@
 
 list_sites <- function(out_dir = tempdir(),
                        internal = TRUE){
+
+    ## donwload the data
+    raw_data = readLines("https://canopy.sr.unh.edu/api/cameras/?format=json&limit=2000")
+    json_data = jsonlite::fromJSON(raw_data)
+    meta_data = json_data$results
   
-  # donwload the data
-  meta_data <- jsonlite::fromJSON("https://phenocam.sr.unh.edu/webcam/network/siteinfo/")
-  
-  # output according to parameters
-  if(internal){
-    return(meta_data)
-  } else {
-    utils::write.table(meta_data,
-                       paste0(tempdir(),"/site_meta_data.csv"),
-                       col.names = TRUE,
-                       row.names = FALSE,
-                       quote = FALSE) 
+    ## output according to parameters
+    if(internal){
+        return(meta_data)
+    } else {
+        utils::write.table(meta_data,
+                           paste0(tempdir(),"/site_meta_data.csv"),
+                           col.names = TRUE,
+                           row.names = FALSE,
+                           quote = FALSE) 
   }
 }

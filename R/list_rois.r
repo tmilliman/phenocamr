@@ -18,17 +18,19 @@
 list_rois <- function(out_dir = tempdir(),
                        internal = TRUE){
   
-  # donwload the data
-  roi_data <- jsonlite::fromJSON("https://phenocam.sr.unh.edu/webcam/roi/roilistinfo/")
- 
-  # output according to parameters
-  if(internal){
-    return(roi_data)
-  } else {
-   utils::write.table(roi_data,
-                      paste0(tempdir(),"/roi_data.csv"),
-                      col.names = TRUE,
-                      row.names = FALSE,
-                      quote = FALSE) 
-  }
+    ## download the data
+    raw_data = readLines("https://canopy.sr.unh.edu/api/roilists/?format=json&limit=1000")
+    json_data <- jsonlite::fromJSON(raw_data)
+    roi_data <- json_data$results
+
+    ## output according to parameters
+    if(internal){
+        return(roi_data)
+    } else {
+        utils::write.table(roi_data,
+                           paste0(tempdir(),"/roi_data.csv"),
+                           col.names = TRUE,
+                           row.names = FALSE,
+                           quote = FALSE) 
+    }
 }
